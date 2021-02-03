@@ -1,0 +1,35 @@
+import numpy as np
+import pandas as pd
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+        
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+from IPython.display import set_matplotlib_formats
+set_matplotlib_formats("retina")
+
+plt.style.use("seaborn-whitegrid")
+
+raw = pd.read_csv("C:/Users/jeong/Documents/KaggleStruggle/kaggle_survey_2020_responses.csv", low_memory=False)
+raw.shape
+
+question = raw.iloc[0]
+question
+
+answer = raw.drop([0])
+answer
+
+answer.info()
+
+question["Q1"]
+
+answer["Q1"].value_counts(normalize = True)*100 #빈도수
+
+answer["Q1"].value_counts().sort_index().plot.bar()
+
+sns.countplot(data = answer.sort_values("Q1"), x = "Q1",
+              palette = "Blues_r").set_title(question["Q1"])
